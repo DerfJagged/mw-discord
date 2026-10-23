@@ -175,7 +175,9 @@ class DiscordUtils {
 			$user = MediaWikiServices::getInstance()->getUserFactory()->newFromUserIdentity($user);
 		}
 
-		$isAnon = $user->isAnon();
+		if ( $user instanceof User ) {
+			$isAnon = $user->isAnon();
+		}
 
 		if ( $isAnon && $wgDiscordAnonymizeIP ) {
 			$text = wfMessage( 'discord-userlinks', 'Anonymous', 'n/a', 'n/a' )->text();
